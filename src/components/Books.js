@@ -16,7 +16,9 @@ const Book = ({ book, onDelete }) => {
   return (
     <div>
       <h3>{book.title}</h3>
-      <p>{book.author}</p>
+      <p>
+        {book.author}
+      </p>
       <button type="button" onClick={handleDelete}>Delete</button>
     </div>
   );

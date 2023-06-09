@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
-const BookForm = ({ onAddBook }) => {
+const BookForm = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newBook = {
-      id: Date.now(),
-      title,
-      author,
-    };
-    onAddBook(newBook);
+    // Logic to handle form submission
+    console.log('Form submitted:', title, author);
     setTitle('');
     setAuthor('');
   };
@@ -21,34 +16,34 @@ const BookForm = ({ onAddBook }) => {
     <div>
       <h2>Add New Book</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">
+        <div>
           Title:
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            aria-label="title"
+            required
           />
-        </label>
-        <br />
-        <label htmlFor="author">
+        </div>
+
+        <div>
           Author:
           <input
             type="text"
             id="author"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            aria-label="author"
+            required
           />
-        </label>
-        <br />
+        </div>
+
         <button type="submit">Add Book</button>
       </form>
     </div>
   );
-};
-
-BookForm.propTypes = {
-  onAddBook: PropTypes.func.isRequired,
 };
 
 export default BookForm;
