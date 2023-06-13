@@ -1,23 +1,35 @@
-import React, { useState } from 'react';
-import Book from './Books';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeBook } from '../redux/books/booksSlice';
 
 const BookList = () => {
-  const [books, setBooks] = useState([
-    { id: 1, title: 'House of stone', author: 'Novuyo Rosa Thsuma' },
-    { id: 2, title: 'The first Woman', author: 'Jennifer Makumbi' },
-    { id: 3, title: "The fisherman's diary ", author: 'Chigozie Obioma' },
-  ]);
+  const books = useSelector((state) => state.books);
+  const dispatch = useDispatch();
 
-  const handleDeleteBook = (id) => {
-    setBooks(books.filter((book) => book.id !== id));
+  const handleDelete = (bookId) => {
+    dispatch(removeBook(bookId));
   };
 
   return (
     <div>
-      <h2>Book List</h2>
-      {books.map((book) => (
-        <Book key={book.id} book={book} onDelete={handleDeleteBook} />
-      ))}
+      <h3>List of Books</h3>
+      <ul>
+        {books.map((book) => (
+          <li key={book.id}>
+            <div>
+              Title:
+              {' '}
+              {book.title}
+            </div>
+            <div>
+              Author:
+              {' '}
+              {book.author}
+            </div>
+            <button type="button" onClick={() => handleDelete(book.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
