@@ -1,8 +1,5 @@
-// src/redux/books/booksSlice.js
-
 import { createSlice } from '@reduxjs/toolkit';
 
-// Initial state
 const initialState = [
   {
     item_id: 'item1',
