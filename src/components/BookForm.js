@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-// import axios from 'axios';
 import { addBook } from '../redux/books/booksSlice';
-// import BookList from './BookList';
-
-// const API_URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/4QOoKXyoyH79LaQpn50M/books/';
 
 const BookForm = () => {
   const [title, setTitle] = useState('');
@@ -14,28 +10,31 @@ const BookForm = () => {
 
   const dispatch = useDispatch();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const newBook = {
-  //     title,
-  //     author,
-  //     category,
-  //   };
-  //   try {
-  //     const response = await axios.post(API_URL, newBook);
-  //     dispatch(addBook(response.data.result));
-  //     setTitle('');
-  //     setAuthor('');
-  //     setCategory('');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (title.trim() === '' || author.trim() === '') {
+      return;
+    }
+
+    const newBook = {
+      item_id: uuidv4(),
+      title,
+      author,
+      category,
+    };
+
+    dispatch(addBook(newBook));
+
+    setTitle('');
+    setAuthor('');
+    setCategory('');
+  };
 
   return (
     <div>
       <h2>Add New Book</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           Title:
           <input
@@ -68,27 +67,7 @@ const BookForm = () => {
             <option value="comedy">Comedy</option>
             <option value="religious">Religious</option>
           </select>
-          <button
-            type="submit"
-            onClick={async (e) => {
-              e.preventDefault();
-
-              if (author !== '' && title !== '') {
-                const book = {
-                  item_id: uuidv4(),
-                  title,
-                  author,
-                  category,
-                };
-
-                dispatch(addBook(book));
-                setAuthor('');
-                setTitle('');
-              }
-            }}
-          >
-            Add Book
-          </button>
+          <button type="submit">Add Book</button>
         </div>
       </form>
     </div>
