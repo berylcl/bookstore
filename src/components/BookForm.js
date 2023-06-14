@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { addBook } from '../redux/books/booksSlice';
+
+const API_URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/4QOoKXyoyH79LaQpn50M/books/';
 
 const BookForm = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [category, setCategory] = useState('');
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newBook = {
-      id: Date.now(),
       title,
       author,
+      category,
     };
-    dispatch(addBook(newBook));
-    setTitle('');
-    setAuthor('');
+    try {
+      const response = await axios.post(API_URL, newBook);
+      dispatch(addBook(response.data.result));
+      setTitle('');
+      setAuthor('');
+      setCategory('');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -33,9 +43,6 @@ const BookForm = () => {
             aria-label="title"
             required
           />
-        </div>
-
-        <div>
           Author:
           <input
             type="text"
@@ -45,9 +52,21 @@ const BookForm = () => {
             aria-label="author"
             required
           />
+          Category:
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            aria-label="category"
+            required
+          >
+            <option value="">Select a category</option>
+            <option value="african-fiction">African Fiction</option>
+            <option value="nonfiction">Nonfiction</option>
+            <option value="comedy">Comedy</option>
+            <option value="religious">Religious</option>
+          </select>
+          <button type="submit">Add Book</button>
         </div>
-
-        <button type="submit">Add Book</button>
       </form>
     </div>
   );
