@@ -1,42 +1,69 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-const initialState = [
-  {
-    item_id: 'item1',
-    title: 'The Great Gatsby',
-    author: 'John Smith',
-    category: 'Fiction',
+const API_KEY = 'PbxKXK2kbi58QgOTC5KL';
+const API_URL = `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${API_KEY}/books`;
+
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
+  try {
+    const response = await axios.get(API_URL);
+    return response.data;
+  } catch (error) {
+    throw Error('Failed to fetch books.');
+  }
+});
+
+export const deleteBook = createAsyncThunk(
+  'books/deleteBook',
+  async (bookId, thunkAPI) => {
+    try {
+      await axios.delete(`${API_URL}/${bookId}`);
+      window.location.reload();
+      return bookId;
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Failed to delete book');
+    }
   },
-  {
-    item_id: 'item2',
-    title: 'Anna Karenina',
-    author: 'Leo Tolstoy',
-    category: 'Fiction',
+);
+
+export const addBook = createAsyncThunk(
+  'books/addBooks',
+  async (book, thunkAPI) => {
+    try {
+      await axios.post(API_URL, book);
+      window.location.reload();
+      return book;
+    } catch (e) {
+      return thunkAPI.rejectWithValue({ error: e.message });
+    }
   },
-  {
-    item_id: 'item3',
-    title: 'The Selfish Gene',
-    author: 'Richard Dawkins',
-    category: 'Nonfiction',
-  },
-];
+);
+
+const initialState = {
+  books: [],
+  status: 'update',
+};
 
 const booksSlice = createSlice({
   name: 'books',
   initialState,
-  reducers: {
-    addBook: (state, action) => {
-      state.push(action.payload);
-    },
-    removeBook: (state, action) => {
-      const bookIndex = state.findIndex((book) => book.id === action.payload);
-      if (bookIndex !== -1) {
-        state.splice(bookIndex, 1);
-      }
-    },
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchBooks.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(fetchBooks.fulfilled, (state, action) => {
+        state.books = action.payload;
+        state.status = 'succeeded';
+      })
+      .addCase(addBook.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(deleteBook.fulfilled, (state) => {
+        state.status = 'succeeded';
+      });
   },
 });
-
-export const { addBook, removeBook } = booksSlice.actions;
 
 export default booksSlice.reducer;

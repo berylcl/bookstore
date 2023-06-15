@@ -1,34 +1,41 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeBook } from '../redux/books/booksSlice';
+import { deleteBook } from '../redux/books/booksSlice';
 
 const BookList = () => {
-  const books = useSelector((state) => state.books);
+  const books = useSelector((state) => state.books.books);
   const dispatch = useDispatch();
 
   const handleDelete = (bookId) => {
-    dispatch(removeBook(bookId));
+    dispatch(deleteBook(bookId));
   };
 
   return (
     <div>
       <h3>List of Books</h3>
       <ul>
-        {books.map((book) => (
-          <li key={book.id}>
+        {Object.entries(books).map(([id, book]) => book.map((bookItem) => (
+          <li key={id}>
             <div>
-              Title:
-              {' '}
-              {book.title}
+              <p>{bookItem.category}</p>
+              <h2>{bookItem.title}</h2>
+              <p>{bookItem.author}</p>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDelete(id);
+                  }}
+                >
+                  delete
+                </button>
+              </div>
             </div>
             <div>
-              Author:
-              {' '}
-              {book.author}
+              {/* Placeholder */}
             </div>
-            <button type="button" onClick={() => handleDelete(book.id)}>Delete</button>
           </li>
-        ))}
+        )))}
       </ul>
     </div>
   );
