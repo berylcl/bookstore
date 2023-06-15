@@ -12,6 +12,7 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
     throw Error('Failed to fetch books.');
   }
 });
+
 export const deleteBook = createAsyncThunk(
   'books/deleteBook',
   async (bookId, thunkAPI) => {
@@ -24,14 +25,17 @@ export const deleteBook = createAsyncThunk(
   },
 );
 
-export const addBook = createAsyncThunk('books/addBook', async (book, { rejectWithValue }) => {
-  try {
-    const response = await axios.post(API_URL, book);
-    return response.data;
-  } catch (error) {
-    return rejectWithValue('Failed to add book');
-  }
-});
+export const addBook = createAsyncThunk(
+  'books/addBooks',
+  async (book, thunkAPI) => {
+    try {
+      await axios.post(API_URL, book);
+      return book;
+    } catch (e) {
+      return thunkAPI.rejectWithValue({ error: e.message });
+    }
+  },
+);
 
 export const removeBook = createAsyncThunk('books/removeBook', async (bookId) => {
   try {
@@ -43,50 +47,28 @@ export const removeBook = createAsyncThunk('books/removeBook', async (bookId) =>
 });
 
 const initialState = {
-  books: [], // Ensure that `books` is initialized as an empty array
-  status: 'idle',
-  error: null,
+  books: [],
+  status: 'update',
 };
 
 const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers(builder) {
     builder
       .addCase(fetchBooks.pending, (state) => {
-        state.status = 'loading';
-        state.error = null;
+        state.status = 'pending';
       })
       .addCase(fetchBooks.fulfilled, (state, action) => {
-        state.status = 'succeeded';
         state.books = action.payload;
-      })
-      .addCase(fetchBooks.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(addBook.pending, (state) => {
-        state.status = 'loading';
-        state.error = null;
-      })
-      .addCase(addBook.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.books.push(action.payload);
       })
-      .addCase(addBook.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
+      .addCase(addBook.fulfilled, (state) => {
+        state.status = 'succeeded';
       })
-      .addCase(removeBook.fulfilled, (state, action) => {
-        state.books = state.books.filter((book) => book.item_id !== action.payload);
-      })
-      .addCase(deleteBook.fulfilled, (state, action) => {
-        const bookId = action.payload;
-        delete state.books[bookId];
-      })
-      .addCase(deleteBook.rejected, (state, action) => {
-        console.log(action.payload);
+      .addCase(deleteBook.fulfilled, (state) => {
+        state.status = 'succeeded';
       });
   },
 });
