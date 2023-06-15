@@ -89,6 +89,7 @@ nav {
   padding-top: 4%;
   padding-bottom: 4%;
   color: #fff;
+  margin-left: 10px;
 }
 
 .navbar {
@@ -120,13 +121,25 @@ nav {
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
+  color: #a9a2a2;
   font-weight: bold;
 }
 
 header {
   height: 60px;
   margin-bottom: 20px;
+}
+
+h4 {
+  color: #5d5a5a;
+  font-size: 20px;
+}
+
+.border {
+  width: 80%;
+  height: 0.125rem;
+  margin: 2.5rem 0.063rem 1.813rem 0;
+  border: solid 2px #e8e8e8;
 }
 
 .book-item {
@@ -160,11 +173,13 @@ header {
 .section3 {
   display: flex;
   flex-direction: column;
+  border-left: 2px solid #e8e8e8;
+  margin-left: 10px;
 }
 
 .section3 p,
 .section3 h3 {
-  margin: 0;
+  margin-left: 10px;
 }
 
 /* bookList.css */
@@ -198,7 +213,7 @@ header {
 }
 
 input {
-  width: 16%;
+  width: 20%;
   height: 50px;
   padding: 0 20px;
   margin-right: 10px;
@@ -209,7 +224,7 @@ input {
 }
 
 select {
-  width: 16%;
+  width: 20%;
   height: 50px;
   padding: 0 20px;
   margin-right: 10px;

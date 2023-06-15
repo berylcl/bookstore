@@ -8,10 +8,10 @@ const Navigation = () => (
       <h1>BOOKSTORE CMS</h1>
       <ul className="nav-links">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">BOOKS</Link>
         </li>
         <li>
-          <Link to="/categories">Categories</Link>
+          <Link to="/categories">CATEGORIES</Link>
         </li>
       </ul>
     </nav>
