@@ -18,3 +18,8 @@ code {
 input {
   margin: 4px;
 }
+
+.booklist {
+  width: 90%;
+  border: 2px solid red;
+}

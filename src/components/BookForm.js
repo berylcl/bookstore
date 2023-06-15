@@ -32,11 +32,11 @@ const BookForm = () => {
   };
 
   return (
-    <div>
-      <h2>Add New Book</h2>
+    <div className="form">
+      <div className="border" />
+      <h4>Add New Book</h4>
       <form onSubmit={handleSubmit}>
         <div>
-          Title:
           <input
             type="text"
             placeholder="title"
@@ -45,7 +45,6 @@ const BookForm = () => {
             aria-label="title"
             required
           />
-          Author:
           <input
             type="text"
             placeholder="author"
@@ -54,7 +53,6 @@ const BookForm = () => {
             aria-label="author"
             required
           />
-          Category:
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -67,7 +65,7 @@ const BookForm = () => {
             <option value="comedy">Comedy</option>
             <option value="religious">Religious</option>
           </select>
-          <button type="submit">Add Book</button>
+          <button className="addBook" type="submit">Add Book</button>
         </div>
       </form>
     </div>
