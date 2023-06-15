@@ -51,7 +51,7 @@ const BookList = () => {
                 completed
               </div>
               <div className="section3">
-                <p>CURRENT CHAPTER</p>
+                <p className="chapter">CURRENT&nbsp;CHAPTER</p>
                 <h3>Chapter 3</h3>
                 <button className="progressButton" type="button">Update Progress</button>
               </div>

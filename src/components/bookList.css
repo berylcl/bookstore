@@ -17,7 +17,7 @@ nav ul {
 .bookList li {
   width: 80%;
   background-color: #fff;
-  padding: 6%;
+  padding: 8%;
   margin-left: -10%;
 }
 
@@ -80,16 +80,16 @@ nav {
 }
 
 .homePage .content {
-  margin-top: 110px; /* Adjust as needed to give space below the fixed elements */
+  margin-top: 110px;
 }
 
 .progressButton {
-  background-color: #3e98c7;
-  border: #3e98c7;
+  background-color: #0290ff;
+  border: #0290ff;
   padding-top: 4%;
   padding-bottom: 4%;
   color: #fff;
-  margin-left: 10px;
+  margin-left: 40px;
 }
 
 .navbar {
@@ -162,12 +162,12 @@ h4 {
 .progress-section {
   display: flex;
   align-items: center;
-  margin-left: 2%;
+  margin-right: 40px;
+  padding-right: 20px;
 }
 
 .percentTag {
   color: #3e98c7;
-  margin-right: 2%;
 }
 
 .section3 {
@@ -179,10 +179,13 @@ h4 {
 
 .section3 p,
 .section3 h3 {
-  margin-left: 10px;
+  padding-left: 40px;
 }
-
 /* bookList.css */
+.chapter {
+  font-size: 20px;
+  color: #555;
+}
 
 .progress {
   width: 100px;
