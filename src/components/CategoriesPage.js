@@ -1,16 +1,13 @@
 import React from 'react';
+import Navigation from './Navigation';
 
-const CategoriesPage = () => {
-  const handleCheckStatus = () => {
-    console.log('Status checked');
-  };
-
-  return (
-    <div>
-      <h1>Categories Page</h1>
-      <button type="button" onClick={handleCheckStatus}>Check Status</button>
+const CategoriesPage = () => (
+  <>
+    <div className="categoriesPage">
+      <Navigation />
     </div>
-  );
-};
+    <p>Categories page</p>
+  </>
+);
 
 export default CategoriesPage;

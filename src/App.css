@@ -3,6 +3,13 @@
 
 body {
   font-family: 'Caveat', cursive;
+  background-color: #f2f2f2;
+  margin-left: 14%;
+  overflow: inherit;
+}
+
+li {
+  list-style-type: none;
 }
 
 input {
@@ -11,4 +18,26 @@ input {
 
 button {
   font-family: 'Caveat', cursive;
+}
+
+h2 {
+  font-size: 30px;
+  margin: 2%;
+}
+
+.addBook {
+  background-color: #3e98c7;
+  color: #fff;
+  padding: 1%;
+  border: #3e98c7;
+  font-size: 20px;
+}
+
+.section3 p {
+  color: #d3d3d3;
+  margin-top: 0;
+}
+
+.section3 h3 {
+  margin: 4%;
 }

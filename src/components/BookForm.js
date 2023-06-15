@@ -67,7 +67,7 @@ const BookForm = () => {
             <option value="comedy">Comedy</option>
             <option value="religious">Religious</option>
           </select>
-          <button type="submit">Add Book</button>
+          <button className="addBook" type="submit">Add Book</button>
         </div>
       </form>
     </div>

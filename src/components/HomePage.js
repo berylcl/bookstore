@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchBooks } from '../redux/books/booksSlice';
 import BookList from './BookList';
 import BookForm from './BookForm';
+import Navigation from './Navigation';
 
 const HomePage = () => {
   const books = useSelector((state) => state.books);
@@ -14,9 +15,11 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <BookList books={books} />
-      <BookForm />
+      <Navigation />
+      <div className="content">
+        <BookList books={books} />
+        <BookForm />
+      </div>
     </div>
   );
 };
