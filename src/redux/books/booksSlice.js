@@ -18,6 +18,7 @@ export const deleteBook = createAsyncThunk(
   async (bookId, thunkAPI) => {
     try {
       await axios.delete(`${API_URL}/${bookId}`);
+      window.location.reload();
       return bookId;
     } catch (error) {
       return thunkAPI.rejectWithValue('Failed to delete book');
@@ -30,21 +31,13 @@ export const addBook = createAsyncThunk(
   async (book, thunkAPI) => {
     try {
       await axios.post(API_URL, book);
+      window.location.reload();
       return book;
     } catch (e) {
       return thunkAPI.rejectWithValue({ error: e.message });
     }
   },
 );
-
-export const removeBook = createAsyncThunk('books/removeBook', async (bookId) => {
-  try {
-    await axios.delete(`${API_URL}/${bookId}`);
-    return bookId;
-  } catch (error) {
-    throw Error('Failed to remove book.');
-  }
-});
 
 const initialState = {
   books: [],
